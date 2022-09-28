@@ -29,23 +29,23 @@ import com.galuhsaputri.unscrumble.databinding.GameFragmentBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
- * Fragment where the game is played, contains the game logic.
+* Fragmen tempat game dimainkan, berisi logika game.
  */
 class GameFragment : Fragment() {
 
-    // Binding object instance with access to the views in the game_fragment.xml layout
+   // Mengikat instance objek dengan akses ke tampilan di tata letak game_fragment.xml
     private lateinit var binding: GameFragmentBinding
 
-    // Create a ViewModel the first time the fragment is created.
-    // If the fragment is re-created, it receives the same GameViewModel instance created by the
-    // first fragment.
+    // Buat ViewModel saat pertama kali fragmen dibuat.
+    // Jika fragmen dibuat ulang, ia menerima instance GameViewModel yang sama yang dibuat oleh
+    // fragmen pertama.
     private val viewModel: GameViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout XML file and return a binding object instance
+        // Mengembang file XML tata letak dan mengembalikan instance objek yang mengikat
         binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
         return binding.root
     }
@@ -53,23 +53,23 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set the viewModel for data binding - this allows the bound layout access
-        // to all the data in the VieWModel
+        // Setel viewModel untuk pengikatan data - ini memungkinkan akses tata letak terikat
+        // ke semua data di VieWModel
         binding.gameViewModel = viewModel
         binding.maxNoOfWords = MAX_NO_OF_WORDS
-        // Specify the fragment view as the lifecycle owner of the binding.
-        // This is used so that the binding can observe LiveData updates
+     // Tentukan tampilan fragmen sebagai pemilik siklus hidup pengikatan.
+        // Ini digunakan agar pengikatan dapat mengamati pembaruan LiveData
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Setup a click listener for the Submit and Skip buttons.
+        // Siapkan pendengar klik untuk tombol Kirim dan Lewati.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
     }
 
     /*
-    * Checks the user's word, and updates the score accordingly.
-    * Displays the next scrambled word.
-    * After the last word, the user is shown a Dialog with the final score.
+   * Memeriksa kata pengguna, dan memperbarui skor yang sesuai.
+    * Menampilkan kata acak berikutnya.
+    * Setelah kata terakhir, pengguna diperlihatkan Dialog dengan skor akhir.
     */
     private fun onSubmitWord() {
         val playerWord = binding.textInputEditText.text.toString()
@@ -85,9 +85,9 @@ class GameFragment : Fragment() {
     }
 
     /*
-     * Skips the current word without changing the score.
-     * Increases the word count.
-     * After the last word, the user is shown a Dialog with the final score.
+     * Melompati kata saat ini tanpa mengubah skor.
+     * Meningkatkan jumlah kata.
+     * Setelah kata terakhir, pengguna diperlihatkan Dialog dengan skor akhir.
      */
     private fun onSkipWord() {
         if (viewModel.nextWord()) {
@@ -98,7 +98,7 @@ class GameFragment : Fragment() {
     }
 
     /*
-     * Creates and shows an AlertDialog with final score.
+   * Membuat dan menampilkan AlertDialog dengan skor akhir.
      */
     private fun showFinalScoreDialog() {
         MaterialAlertDialogBuilder(requireContext())
@@ -115,8 +115,8 @@ class GameFragment : Fragment() {
     }
 
     /*
-     * Re-initializes the data in the ViewModel and updates the views with the new data, to
-     * restart the game.
+    * Inisialisasi ulang data di ViewModel dan perbarui tampilan dengan data baru, untuk
+     * mulai ulang permainan.
      */
     private fun restartGame() {
         viewModel.reinitializeData()
@@ -124,14 +124,14 @@ class GameFragment : Fragment() {
     }
 
     /*
-     * Exits the game.
+     * keluar dari game.
      */
     private fun exitGame() {
         activity?.finish()
     }
 
     /*
-    * Sets and resets the text field error status.
+   * Mengatur dan mengatur ulang status kesalahan bidang teks.
     */
     private fun setErrorTextField(error: Boolean) {
         if (error) {
